@@ -8,7 +8,7 @@
     "start-example": "yarn workspace example start",
     "build": "yarn workspace @agney/playground build",
     "test": "yarn workspace @agney/playground test",
-    "prepare": "npm run build"
+    "prepare": "husky install"
   },
   "workspaces": [
     "playground",
