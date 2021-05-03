@@ -13,9 +13,10 @@ import Draggable from "./Draggable";
 setup(createElement, undefined, useTheme);
 
 const StyledDraggable = styled(Draggable)`
-  border: 0.1em solid ${(props) => props.theme.container.borderColor};
   display: flex;
-  min-height: ${(props) => props.theme.container.minHeight};
+  border: 12px solid #4b4b5c;
+  border-radius: 6px;
+  min-height: 300px;
 
   ${media.phone} {
     flex-direction: column;

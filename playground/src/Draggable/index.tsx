@@ -10,9 +10,9 @@ const Container = styled("div", forwardRef)`
 `;
 
 const Divider = styled("div", forwardRef)`
-  width: ${(props) => props.theme.divider.width}px;
+  width: 10px;
   cursor: col-resize;
-  background-color: ${(props) => props.theme.divider.background};
+  background-color: #4b4b5c;
 `;
 
 interface IProps {
