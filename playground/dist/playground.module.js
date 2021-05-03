@@ -307,7 +307,6 @@ var R,
           title: "example",
           frameBorder: "0",
           srcDoc: u,
-          loading: "lazy",
         }),
         f && e.createElement(ee, { error: f })
       )

@@ -6,17 +6,17 @@ var e = require("react"),
   o = require("prism-react-renderer/themes/nightOwl"),
   i = require("@reach/tabs"),
   l = require("@agney/react-inspector"),
-  d = require("lodash.merge");
-function u(e) {
+  u = require("lodash.merge");
+function d(e) {
   return e && "object" == typeof e && "default" in e ? e : { default: e };
 }
 var c,
-  s = u(e),
-  f = u(r),
-  m = u(a),
-  p = u(o),
-  g = u(l),
-  h = u(d);
+  s = d(e),
+  f = d(r),
+  m = d(a),
+  p = d(o),
+  g = d(l),
+  h = d(u);
 function b() {
   return (b =
     Object.assign ||
@@ -204,7 +204,7 @@ var k,
       return e.theme.console.background;
     }
   ),
-  z = function (e) {
+  F = function (e) {
     return s.default.createElement(
       J,
       null,
@@ -217,7 +217,7 @@ var k,
       })
     );
   },
-  F = t.styled("div")(
+  z = t.styled("div")(
     L ||
       (L = v([
         "\n  background-color: ",
@@ -233,7 +233,7 @@ var k,
   ),
   A = function (e) {
     return s.default.createElement(
-      F,
+      z,
       null,
       s.default.createElement("p", null, e.error)
     );
@@ -251,10 +251,10 @@ var k,
       o = n.presets,
       i = e.useState(""),
       l = i[0],
-      d = i[1],
-      u = e.useState(null),
-      c = u[0],
-      f = u[1];
+      u = i[1],
+      d = e.useState(null),
+      c = d[0],
+      f = d[1];
     return (
       e.useMemo(
         function () {
@@ -283,7 +283,7 @@ var k,
                 "\n    </body>\n    </html>\n  "
               );
             })(r, t, a, o);
-            d(e), f(null);
+            u(e), f(null);
           } catch (e) {
             f(e.message);
           }
@@ -310,7 +310,6 @@ var k,
           title: "example",
           frameBorder: "0",
           srcDoc: l,
-          loading: "lazy",
         }),
         c && s.default.createElement(A, { error: c })
       )
@@ -323,9 +322,9 @@ var k,
       o = n.defaultTab,
       i = n.transformJs,
       l = n.width,
-      d = e.useState([]),
-      u = d[0],
-      c = d[1],
+      u = e.useState([]),
+      d = u[0],
+      c = u[1],
       f = e.useMemo(function () {
         return [
           { name: "Result", value: "result" },
@@ -370,7 +369,7 @@ var k,
           s.default.createElement(
             H,
             null,
-            s.default.createElement(z, { logs: u })
+            s.default.createElement(F, { logs: d })
           )
         )
       )
@@ -477,16 +476,16 @@ var re = t.styled(function (n) {
     o = n.rightChild,
     i = e.useRef(null),
     l = e.useRef(null),
-    d = (function (n) {
+    u = (function (n) {
       var t = n.containerRef,
         r = n.dividerRef,
         a = n.dividerWidth,
         o = e.useState(0),
         i = o[0],
         l = o[1],
-        d = e.useState(null),
-        u = d[0],
-        c = d[1];
+        u = e.useState(null),
+        d = u[0],
+        c = u[1];
       e.useEffect(function () {
         var e = t.current;
         if (e) {
@@ -497,9 +496,9 @@ var re = t.styled(function (n) {
       }, []);
       var s = e.useCallback(
           function (e) {
-            u && l(e.clientX - u.left);
+            d && l(e.clientX - d.left);
           },
-          [u]
+          [d]
         ),
         f = e.useCallback(
           function () {
@@ -528,16 +527,16 @@ var re = t.styled(function (n) {
           },
           [m]
         ),
-        { leftWidth: i, rightWidth: u ? u.width - i - a : 0 }
+        { leftWidth: i, rightWidth: d ? d.width - i - a : 0 }
       );
     })({ containerRef: i, dividerRef: l, dividerWidth: Q().divider.width }),
-    u = d.rightWidth;
+    d = u.rightWidth;
   return s.default.createElement(
     ne,
     { className: r, ref: i },
-    a(d.leftWidth),
+    a(u.leftWidth),
     s.default.createElement(te, { ref: l }),
-    o(u)
+    o(d)
   );
 })(
   ee ||
@@ -553,8 +552,8 @@ module.exports = function (t) {
     o = void 0 === a ? "markup" : a,
     i = t.defaultResultTab,
     l = void 0 === i ? "result" : i,
-    d = t.transformJs,
-    u = void 0 !== d && d,
+    u = t.transformJs,
+    d = void 0 !== u && u,
     c = t.presets,
     f = void 0 === c ? [] : c,
     m = t.theme,
@@ -591,7 +590,7 @@ module.exports = function (t) {
             id: y,
             snippet: v,
             defaultTab: l,
-            transformJs: u,
+            transformJs: d,
             presets: f,
           });
         },

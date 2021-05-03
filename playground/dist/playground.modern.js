@@ -288,7 +288,6 @@ const Z = p("div")(
           title: "example",
           frameBorder: "0",
           srcDoc: c,
-          loading: "lazy",
         }),
         s && e.createElement(K, { error: s })
       )

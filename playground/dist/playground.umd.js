@@ -232,7 +232,7 @@
         return e.theme.console.background;
       }
     ),
-    z = function (e) {
+    F = function (e) {
       return s.default.createElement(
         J,
         null,
@@ -245,7 +245,7 @@
         })
       );
     },
-    F = t.styled("div")(
+    z = t.styled("div")(
       L ||
         (L = v([
           "\n  background-color: ",
@@ -261,7 +261,7 @@
     ),
     $ = function (e) {
       return s.default.createElement(
-        F,
+        z,
         null,
         s.default.createElement("p", null, e.error)
       );
@@ -338,7 +338,6 @@
             title: "example",
             frameBorder: "0",
             srcDoc: d,
-            loading: "lazy",
           }),
           c && s.default.createElement($, { error: c })
         )
@@ -398,7 +397,7 @@
             s.default.createElement(
               H,
               null,
-              s.default.createElement(z, { logs: u })
+              s.default.createElement(F, { logs: u })
             )
           )
         )

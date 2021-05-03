@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { theme } from "./theme";
 export declare type DefaultTheme = typeof theme;
 export declare const useTheme: () => {
