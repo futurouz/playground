@@ -24,5 +24,13 @@
     "type": "git",
     "url": "git@github.com:agneym/playground.git"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@agney/react-inspector": "^4.0.0",
+    "@reach/auto-id": "^0.13.2",
+    "@reach/tabs": "^0.13.2",
+    "goober": "^2.0.33",
+    "lodash.merge": "^4.6.2",
+    "prism-react-renderer": "^1.2.0",
+    "react-simple-code-editor": "^0.11.0"
+  }
 }
