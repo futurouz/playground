@@ -1,10 +1,12 @@
-import { FC } from "react";
+import React from "react";
 import { ISnippet } from "../types";
-interface IProps {
+declare type Props = {
   id: string | number;
   snippet: ISnippet;
   transformJs: boolean;
   presets: string[];
-}
-declare const Frame: FC<IProps>;
+};
+declare const Frame: React.MemoExoticComponent<
+  ({ id, snippet, transformJs, presets }: Props) => JSX.Element
+>;
 export default Frame;
