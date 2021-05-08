@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "../../scripts/test-utils";
 
-import Editor from "../Editor";
+import Editor from "../Editor/Editor";
 
 const initialSnippet = {
   markup: ``,

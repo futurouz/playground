@@ -1,29 +1,17 @@
-import React, { FC, useState, createElement } from "react";
+import React, { useState, createElement } from "react";
 import { useId } from "@reach/auto-id";
-import { styled, setup, DefaultTheme } from "goober";
+import { setup, DefaultTheme } from "goober";
 
-import Editor from "./Editor";
-import Result from "./Result";
+import Editor from "./Editor/Editor";
+import Result from "./Result/Result";
 import { ISnippet, IEditorTabs, IResultTabs } from "./types";
 import { ThemeProvider, useTheme } from "./utils/ThemeProvider";
 import { ColorMode } from "./utils/theme";
-import media from "./utils/media";
-import Draggable from "./Draggable";
+import Draggable from "./Draggable/Draggable";
 
 setup(createElement, undefined, useTheme);
 
-const StyledDraggable = styled(Draggable)`
-  display: flex;
-  border: 12px solid #4b4b5c;
-  border-radius: 6px;
-  min-height: 300px;
-
-  ${media.phone} {
-    flex-direction: column;
-  }
-`;
-
-interface IProps {
+type Props = {
   initialSnippet: ISnippet;
   defaultEditorTab?: IEditorTabs;
   defaultResultTab?: IResultTabs;
@@ -32,9 +20,9 @@ interface IProps {
   id?: string;
   theme?: DefaultTheme;
   mode: ColorMode;
-}
+};
 
-const Playground: FC<IProps> = ({
+function Playground({
   id: userId,
   initialSnippet,
   defaultEditorTab = "markup",
@@ -43,7 +31,7 @@ const Playground: FC<IProps> = ({
   presets = [],
   theme,
   mode = "light",
-}) => {
+}: Props) {
   const [snippet, setSnippet] = useState<ISnippet>(initialSnippet);
   const id = useId(userId) as string;
 
@@ -57,7 +45,7 @@ const Playground: FC<IProps> = ({
   return (
     <ThemeProvider userTheme={theme} mode={mode}>
       <div className="playground">
-        <StyledDraggable
+        <Draggable
           leftChild={(width) => (
             <Editor
               width={width}
@@ -80,6 +68,6 @@ const Playground: FC<IProps> = ({
       </div>
     </ThemeProvider>
   );
-};
+}
 
 export default Playground;

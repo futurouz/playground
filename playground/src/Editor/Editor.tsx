@@ -1,5 +1,5 @@
-import React, { FC, useMemo } from "react";
-import {styled} from "goober";
+import React, { useMemo } from "react";
+import styled from "styled-components";
 import { IEditorTabs, ISnippet } from "../types";
 import EditorSetup from "./EditorSetup";
 import { ITabConfig } from "../types";
@@ -12,17 +12,17 @@ import {
 } from "../TabStyles";
 
 const TabContainer = styled(StyledTabs)`
-  min-width: ${props => props.theme.container.minWidth};
+  min-width: 100px;
 `;
 
-interface IProps {
+type Props = {
   width: number;
   code: ISnippet;
   defaultTab: IEditorTabs;
   onChange: (changed: string, type: IEditorTabs) => void;
-}
+};
 
-const Editor: FC<IProps> = ({ code, defaultTab, onChange, width }) => {
+export default function Editor({ code, defaultTab, onChange, width }: Props) {
   const tabs: Readonly<ITabConfig<IEditorTabs>[]> = useMemo(
     () => [
       { name: "HTML", value: "markup" },
@@ -33,16 +33,16 @@ const Editor: FC<IProps> = ({ code, defaultTab, onChange, width }) => {
   );
   return (
     <TabContainer
-      defaultIndex={tabs.findIndex(tab => tab.value === defaultTab)}
+      defaultIndex={tabs.findIndex((tab) => tab.value === defaultTab)}
       style={{ width: width }}
     >
       <StyledTabList>
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <StyledTab key={tab.value}>{tab.name}</StyledTab>
         ))}
       </StyledTabList>
       <StyledTabPanels>
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <StyledTabPanel key={tab.value}>
             <EditorSetup
               code={code[tab.value]}
@@ -54,6 +54,4 @@ const Editor: FC<IProps> = ({ code, defaultTab, onChange, width }) => {
       </StyledTabPanels>
     </TabContainer>
   );
-};
-
-export default Editor;
+}

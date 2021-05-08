@@ -1,11 +1,11 @@
 import React, { FC, useMemo, useState, memo, useEffect } from "react";
-import { styled } from "goober";
+import styled from "styled-components";
 
 import { ISnippet } from "../types";
 import constructSnippet from "../utils/constructSnippet";
 import ErrorDisplay from "./ErrorDisplay";
 
-const Container = styled("div")`
+const Container = styled.div`
   position: relative;
   height: 100%;
 
@@ -20,15 +20,14 @@ const Container = styled("div")`
     left: 0;
   }
 `;
-
-interface IProps {
+type Props = {
   id: string | number;
   snippet: ISnippet;
   transformJs: boolean;
   presets: string[];
-}
+};
 
-const Frame: FC<IProps> = memo(({ id, snippet, transformJs, presets }) => {
+const Frame = memo(({ id, snippet, transformJs, presets }: Props) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -66,7 +65,6 @@ const Frame: FC<IProps> = memo(({ id, snippet, transformJs, presets }) => {
         title={"example"}
         frameBorder="0"
         srcDoc={code}
-        // loading="lazy"
       />
       {error && <ErrorDisplay error={error} />}
     </Container>

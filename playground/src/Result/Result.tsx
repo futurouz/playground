@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 
 import {
   StyledTabList,
@@ -11,23 +11,16 @@ import { ISnippet, ITabConfig, IResultTabs } from "../types";
 import Console from "./Console";
 import Frame from "./Frame";
 
-interface IProps {
+type Props = {
   id: string | number;
   snippet: ISnippet;
   defaultTab: IResultTabs;
   transformJs: boolean;
   presets: string[];
   width: number;
-}
+};
 
-const Result: FC<IProps> = ({
-  id,
-  snippet,
-  presets,
-  defaultTab,
-  transformJs,
-  width,
-}) => {
+export default function Result(props: Props) {
   const [logs, setLogs] = useState<unknown[]>([]);
   const tabs: Readonly<ITabConfig<IResultTabs>[]> = useMemo(
     () => [
@@ -41,7 +34,7 @@ const Result: FC<IProps> = ({
       if (typeof window !== "undefined") {
         window.addEventListener("message", (data) => {
           if (
-            data.data.source === `frame-${id}` &&
+            data.data.source === `frame-${props.id}` &&
             data.data.message.type === "log"
           ) {
             setLogs((prevLogs) => [...prevLogs, ...data.data.message.data]);
@@ -50,19 +43,25 @@ const Result: FC<IProps> = ({
       }
     }
     waitForMessage();
-  }, [id]);
+  }, [props.id]);
+
   return (
     <StyledTabs
-      defaultIndex={tabs.findIndex((tab) => tab.value === defaultTab)}
-      style={{ width: width }}
+      defaultIndex={tabs.findIndex((tab) => tab.value === props.defaultTab)}
+      style={{ width: props.width }}
     >
+      <StyledTabList>
+        {tabs.map((tab) => (
+          <StyledTab key={tab.value}>{tab.name}</StyledTab>
+        ))}
+      </StyledTabList>
       <StyledTabPanels>
         <StyledTabPanel>
           <Frame
-            id={id}
-            snippet={snippet}
-            transformJs={transformJs}
-            presets={presets}
+            id={props.id}
+            snippet={props.snippet}
+            transformJs={props.transformJs}
+            presets={props.presets}
           />
         </StyledTabPanel>
         <StyledTabPanel>
@@ -71,6 +70,4 @@ const Result: FC<IProps> = ({
       </StyledTabPanels>
     </StyledTabs>
   );
-};
-
-export default Result;
+}

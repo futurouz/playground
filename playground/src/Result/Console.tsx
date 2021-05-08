@@ -1,9 +1,10 @@
 import React, { FC } from "react";
-import { styled } from "goober";
+import styled from "styled-components";
 import Inspector from "@agney/react-inspector";
 
-const Container = styled("div")`
-  background-color: ${(props) => props.theme.console.background};
+const Container = styled.div`
+  background-color: black;
+  color: white;
   height: 100%;
 
   li {
@@ -11,11 +12,11 @@ const Container = styled("div")`
   }
 `;
 
-interface IProps {
+type Props = {
   logs: unknown[];
-}
+};
 
-const Console: FC<IProps> = ({ logs }) => {
+export default function Console({ logs }: Props) {
   return (
     <Container>
       {logs.map((log: unknown, index: number) => (
@@ -23,6 +24,4 @@ const Console: FC<IProps> = ({ logs }) => {
       ))}
     </Container>
   );
-};
-
-export default Console;
+}

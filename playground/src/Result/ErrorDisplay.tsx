@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import { styled } from "goober";
+import styled from "styled-components";
 
-const Container = styled("div")`
-  background-color: ${(props) => props.theme.error.background};
-  color: ${(props) => props.theme.error.color};
+const Container = styled.div`
+  background-color: red;
+  color: white;
   padding: 0.2em 0.5em;
   position: absolute;
   width: 100%;
