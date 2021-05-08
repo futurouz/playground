@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import styled from "styled-components";
 import { IEditorTabs, ISnippet } from "../types";
 import EditorSetup from "./EditorSetup";
 import { ITabConfig } from "../types";
@@ -10,10 +9,6 @@ import {
   StyledTabPanels,
   StyledTabPanel,
 } from "../TabStyles";
-
-const TabContainer = styled(StyledTabs)`
-  min-width: 100px;
-`;
 
 type Props = {
   width: number;
@@ -31,8 +26,9 @@ export default function Editor({ code, defaultTab, onChange, width }: Props) {
     ],
     []
   );
+
   return (
-    <TabContainer
+    <StyledTabs
       defaultIndex={tabs.findIndex((tab) => tab.value === defaultTab)}
       style={{ width: width }}
     >
@@ -52,6 +48,6 @@ export default function Editor({ code, defaultTab, onChange, width }: Props) {
           </StyledTabPanel>
         ))}
       </StyledTabPanels>
-    </TabContainer>
+    </StyledTabs>
   );
 }

@@ -19,15 +19,13 @@ render(app, document.getElementById('app'));
     `,
   };
   return (
-    <div style={{ width: "80%", margin: "0 auto" }}>
-      <Playground
-        initialSnippet={snippet}
-        defaultEditorTab="javascript"
-        defaultResultTab="result"
-        mode="dark"
-        transformJs
-      />
-    </div>
+    <Playground
+      initialSnippet={snippet}
+      defaultEditorTab="javascript"
+      defaultResultTab="result"
+      mode="dark"
+      transformJs
+    />
   );
 };
 

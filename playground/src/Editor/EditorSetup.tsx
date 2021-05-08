@@ -7,10 +7,10 @@ import styled from "styled-components";
 import { IEditorTabs } from "../types";
 
 const EditorWrapper = styled.div`
-  background-color: black;
-  color: white;
+  background-color: #252530;
   overflow-y: auto;
   font-feature-settings: normal;
+  width: 100%;
   height: 100%;
 `;
 

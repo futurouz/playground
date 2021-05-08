@@ -5,10 +5,10 @@ import useDrag from "./useDrag";
 import { useTheme } from "../utils/ThemeProvider";
 import media from "../utils/media";
 
-const Container = styled.div`
+const Wrapper = styled.div`
   display: flex;
-  border-radius: 6px;
-  min-height: 300px;
+  border: 16px solid #252530;
+  border-radius: 8px;
 
   ${media.phone} {
     flex-direction: column;
@@ -16,9 +16,9 @@ const Container = styled.div`
 `;
 
 const Divider = styled.div`
-  width: 10px;
+  width: 15px;
   cursor: col-resize;
-  background-color: #4b4b5c;
+  background-color: #252530;
 `;
 
 type Props = {
@@ -38,10 +38,10 @@ export default function Draggable(props: Props) {
   });
 
   return (
-    <Container ref={containerRef}>
+    <Wrapper ref={containerRef}>
       {props.leftChild(leftWidth)}
       <Divider ref={dividerRef} />
       {props.rightChild(rightWidth)}
-    </Container>
+    </Wrapper>
   );
 }

@@ -8,6 +8,8 @@ import ErrorDisplay from "./ErrorDisplay";
 const Container = styled.div`
   position: relative;
   height: 100%;
+  background: white;
+  border-radius: 8px;
 
   &::after {
     content: "";
