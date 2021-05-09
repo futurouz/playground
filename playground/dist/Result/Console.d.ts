@@ -1,5 +1,6 @@
-declare type Props = {
+import { FC } from "react";
+interface IProps {
   logs: unknown[];
-};
-export default function Console({ logs }: Props): JSX.Element;
-export {};
+}
+declare const Console: FC<IProps>;
+export default Console;

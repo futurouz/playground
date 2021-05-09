@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, forwardRef } from "react";
+import React, { FC, ReactNode, useRef } from "react";
 import styled from "styled-components";
 
 import useDrag from "./useDrag";
@@ -21,12 +21,12 @@ const Divider = styled.div`
   background-color: #252530;
 `;
 
-type Props = {
+interface IProps {
   leftChild: (width: number) => ReactNode;
   rightChild: (width: number) => ReactNode;
-};
+}
 
-export default function Draggable(props: Props) {
+const Draggable: FC<IProps> = ({ leftChild, rightChild }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const themeContext = useTheme();
@@ -39,9 +39,11 @@ export default function Draggable(props: Props) {
 
   return (
     <Wrapper ref={containerRef}>
-      {props.leftChild(leftWidth)}
+      {leftChild(leftWidth)}
       <Divider ref={dividerRef} />
-      {props.rightChild(rightWidth)}
+      {rightChild(rightWidth)}
     </Wrapper>
   );
-}
+};
+
+export default Draggable;

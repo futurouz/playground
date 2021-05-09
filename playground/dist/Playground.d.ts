@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { DefaultTheme } from "goober";
 import { ISnippet, IEditorTabs, IResultTabs } from "./types";
 import { ColorMode } from "./utils/theme";
-declare type Props = {
+interface IProps {
   initialSnippet: ISnippet;
   defaultEditorTab?: IEditorTabs;
   defaultResultTab?: IResultTabs;
@@ -10,15 +11,6 @@ declare type Props = {
   id?: string;
   theme?: DefaultTheme;
   mode: ColorMode;
-};
-declare function Playground({
-  id: userId,
-  initialSnippet,
-  defaultEditorTab,
-  defaultResultTab,
-  transformJs,
-  presets,
-  theme,
-  mode,
-}: Props): JSX.Element;
+}
+declare const Playground: FC<IProps>;
 export default Playground;

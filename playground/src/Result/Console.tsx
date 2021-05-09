@@ -12,11 +12,11 @@ const Container = styled.div`
   }
 `;
 
-type Props = {
+interface IProps {
   logs: unknown[];
-};
+}
 
-export default function Console({ logs }: Props) {
+const Console: FC<IProps> = ({ logs }) => {
   return (
     <Container>
       {logs.map((log: unknown, index: number) => (
@@ -24,4 +24,6 @@ export default function Console({ logs }: Props) {
       ))}
     </Container>
   );
-}
+};
+
+export default Console;

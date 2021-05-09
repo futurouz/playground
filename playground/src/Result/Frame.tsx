@@ -22,14 +22,14 @@ const Container = styled.div`
     left: 0;
   }
 `;
-type Props = {
+interface IProps {
   id: string | number;
   snippet: ISnippet;
   transformJs: boolean;
   presets: string[];
-};
+}
 
-const Frame = memo(({ id, snippet, transformJs, presets }: Props) => {
+const Frame: FC<IProps> = memo(({ id, snippet, transformJs, presets }) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
 

@@ -1,17 +1,17 @@
-import React, { useState, createElement } from "react";
+import React, { FC, useState, createElement } from "react";
 import { useId } from "@reach/auto-id";
 import { setup, DefaultTheme } from "goober";
 
-import Editor from "./Editor/Editor";
-import Result from "./Result/Result";
+import Editor from "./Editor";
+import Result from "./Result";
 import { ISnippet, IEditorTabs, IResultTabs } from "./types";
 import { ThemeProvider, useTheme } from "./utils/ThemeProvider";
 import { ColorMode } from "./utils/theme";
-import Draggable from "./Draggable/Draggable";
+import Draggable from "./Draggable";
 
 setup(createElement, undefined, useTheme);
 
-type Props = {
+interface IProps {
   initialSnippet: ISnippet;
   defaultEditorTab?: IEditorTabs;
   defaultResultTab?: IResultTabs;
@@ -20,9 +20,9 @@ type Props = {
   id?: string;
   theme?: DefaultTheme;
   mode: ColorMode;
-};
+}
 
-function Playground({
+const Playground: FC<IProps> = ({
   id: userId,
   initialSnippet,
   defaultEditorTab = "markup",
@@ -31,7 +31,7 @@ function Playground({
   presets = [],
   theme,
   mode = "light",
-}: Props) {
+}) => {
   const [snippet, setSnippet] = useState<ISnippet>(initialSnippet);
   const id = useId(userId) as string;
 
@@ -68,6 +68,6 @@ function Playground({
       </div>
     </ThemeProvider>
   );
-}
+};
 
 export default Playground;

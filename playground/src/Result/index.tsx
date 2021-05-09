@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { FC, useMemo, useEffect, useState } from "react";
 
 import {
   StyledTabList,
@@ -11,16 +11,23 @@ import { ISnippet, ITabConfig, IResultTabs } from "../types";
 import Console from "./Console";
 import Frame from "./Frame";
 
-type Props = {
+interface IProps {
   id: string | number;
   snippet: ISnippet;
   defaultTab: IResultTabs;
   transformJs: boolean;
   presets: string[];
   width: number;
-};
+}
 
-export default function Result(props: Props) {
+const Result: FC<IProps> = ({
+  id,
+  snippet,
+  presets,
+  defaultTab,
+  transformJs,
+  width,
+}) => {
   const [logs, setLogs] = useState<unknown[]>([]);
   const tabs: Readonly<ITabConfig<IResultTabs>[]> = useMemo(
     () => [
@@ -34,7 +41,7 @@ export default function Result(props: Props) {
       if (typeof window !== "undefined") {
         window.addEventListener("message", (data) => {
           if (
-            data.data.source === `frame-${props.id}` &&
+            data.data.source === `frame-${id}` &&
             data.data.message.type === "log"
           ) {
             setLogs((prevLogs) => [...prevLogs, ...data.data.message.data]);
@@ -43,12 +50,12 @@ export default function Result(props: Props) {
       }
     }
     waitForMessage();
-  }, [props.id]);
+  }, [id]);
 
   return (
     <StyledTabs
-      defaultIndex={tabs.findIndex((tab) => tab.value === props.defaultTab)}
-      style={{ width: props.width }}
+      defaultIndex={tabs.findIndex((tab) => tab.value === defaultTab)}
+      style={{ width: width }}
     >
       <StyledTabList>
         {tabs.map((tab) => (
@@ -58,10 +65,10 @@ export default function Result(props: Props) {
       <StyledTabPanels>
         <StyledTabPanel>
           <Frame
-            id={props.id}
-            snippet={props.snippet}
-            transformJs={props.transformJs}
-            presets={props.presets}
+            id={id}
+            snippet={snippet}
+            transformJs={transformJs}
+            presets={presets}
           />
         </StyledTabPanel>
         <StyledTabPanel>
@@ -70,4 +77,6 @@ export default function Result(props: Props) {
       </StyledTabPanels>
     </StyledTabs>
   );
-}
+};
+
+export default Result;

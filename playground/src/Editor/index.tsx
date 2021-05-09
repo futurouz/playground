@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import { IEditorTabs, ISnippet } from "../types";
 import EditorSetup from "./EditorSetup";
 import { ITabConfig } from "../types";
@@ -10,14 +10,14 @@ import {
   StyledTabPanel,
 } from "../TabStyles";
 
-type Props = {
+interface IProps {
   width: number;
   code: ISnippet;
   defaultTab: IEditorTabs;
   onChange: (changed: string, type: IEditorTabs) => void;
-};
+}
 
-export default function Editor({ code, defaultTab, onChange, width }: Props) {
+const Editor: FC<IProps> = ({ code, defaultTab, onChange, width }) => {
   const tabs: Readonly<ITabConfig<IEditorTabs>[]> = useMemo(
     () => [
       { name: "HTML", value: "markup" },
@@ -50,4 +50,6 @@ export default function Editor({ code, defaultTab, onChange, width }: Props) {
       </StyledTabPanels>
     </StyledTabs>
   );
-}
+};
+
+export default Editor;
