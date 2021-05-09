@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import styled from "styled-components";
+import { styled } from "goober";
 
-const Container = styled.div`
+const Container = styled("div")`
   color: white;
   padding: 0.2em 0.5em;
   position: absolute;

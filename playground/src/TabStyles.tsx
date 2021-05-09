@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "goober";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
 
 import media from "./utils/media";
@@ -6,6 +6,7 @@ import media from "./utils/media";
 export const StyledTabs = styled(Tabs)`
   display: flex;
   flex-direction: column;
+  width: 50%;
   min-width: 200px;
   min-height: 350px;
   background: #252530;

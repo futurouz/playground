@@ -161,7 +161,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
         function getBaseURL(url) {
           return (
             ("" + url).replace(
-              /^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/,
+              /^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/,
               "$1"
             ) + "/"
           );
@@ -247,7 +247,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = "" || location.hostname;
           var protocol = location.protocol === "https:" ? "wss" : "ws";
           var ws = new WebSocket(
-            protocol + "://" + hostname + ":" + "54250" + "/"
+            protocol + "://" + hostname + ":" + "55611" + "/"
           );
 
           ws.onmessage = function (event) {
