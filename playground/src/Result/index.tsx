@@ -15,6 +15,7 @@ interface IProps {
   id: string | number;
   snippet: ISnippet;
   defaultTab: IResultTabs;
+  excludeTabs?: IResultTabs[];
   transformJs: boolean;
   presets: string[];
   width: number;
@@ -25,17 +26,21 @@ const Result: FC<IProps> = ({
   snippet,
   presets,
   defaultTab,
+  excludeTabs,
   transformJs,
   width,
 }) => {
   const [logs, setLogs] = useState<unknown[]>([]);
-  const tabs: Readonly<ITabConfig<IResultTabs>[]> = useMemo(
-    () => [
-      { name: "Result", value: "result" },
-      { name: "Console", value: "console" },
-    ],
-    []
-  );
+  const tabs: Readonly<ITabConfig<IResultTabs>[]> = useMemo(() => {
+    const defaultTabs = [
+      { name: "Result", value: "result" as IResultTabs },
+      { name: "Console", value: "console" as IResultTabs },
+    ];
+
+    return defaultTabs.filter((tab) =>
+      excludeTabs.find((name) => name !== tab.value)
+    );
+  }, [excludeTabs]);
   useEffect(() => {
     function waitForMessage() {
       if (typeof window !== "undefined") {

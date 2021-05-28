@@ -34,7 +34,7 @@
         e.Inspector,
         e.merge
       ));
-})(this, function (e, n, t, r, a, o, i, l, d) {
+})(this, function (e, n, t, r, a, o, i, d, l) {
   function u(e) {
     return e && "object" == typeof e && "default" in e ? e : { default: e };
   }
@@ -43,8 +43,8 @@
     f = u(r),
     m = u(a),
     p = u(o),
-    g = u(l),
-    h = u(d);
+    g = u(d),
+    h = u(l);
   function b() {
     return (b =
       Object.assign ||
@@ -60,10 +60,10 @@
   function v(e, n) {
     return n || (n = e.slice(0)), (e.raw = n), e;
   }
-  var y,
-    k,
-    w,
+  var w,
     E,
+    y,
+    k,
     x,
     C,
     T,
@@ -73,7 +73,7 @@
     S = t.styled("div")(
       c ||
         (c = v([
-          "\n  background-color: #252530;\n  overflow-y: auto;\n  font-feature-settings: normal;\n  width: 100%;\n  height: 100%;\n",
+          "\n  background-color: #252530;\n  overflow-y: auto;\n  font-feature-settings: normal;\n  width: 100%;\n  height: 100%;\n\n  textarea {\n    caret-color: white;\n  }\n",
         ]))
     ),
     I = function (n) {
@@ -132,61 +132,71 @@
       phone: O(576),
     }),
     N = t.styled(i.Tabs)(
-      y ||
-        (y = v([
+      w ||
+        (w = v([
           "\n  display: flex;\n  flex-direction: column;\n  width: 50%;\n  min-width: 200px;\n  min-height: 350px;\n  background: #252530;\n\n  ",
           " {\n    min-width: 100% !important;\n    min-height: 100%;\n  }\n",
         ])),
       j.phone
     ),
-    P = t.styled(i.TabList)(k || (k = v(["\n  background-color: #252530;\n"]))),
+    P = t.styled(i.TabList)(E || (E = v(["\n  background-color: #252530;\n"]))),
     q = t.styled(i.Tab)(
-      w ||
-        (w = v([
-          "\n  border: none;\n  padding: 8px 5px;\n  color: gray;\n\n  &[data-selected] {\n    color: lightgray;\n  }\n",
+      y ||
+        (y = v([
+          "\n  border: none;\n  padding: 8px 5px;\n  color: gray;\n\n  &[data-selected] {\n    color: lightgray;\n    font-weight: 600;\n  }\n",
         ]))
     ),
-    M = t.styled(i.TabPanels)(E || (E = v(["\n  flex: 1 1 0%;\n"]))),
+    M = t.styled(i.TabPanels)(
+      k || (k = v(["\n  flex: 1 1 0%;\n  overflow: auto;\n"]))
+    ),
     U = t.styled(i.TabPanel)(
       x || (x = v(["\n  height: 100%;\n  width: 100%;\n"]))
     ),
     W = function (n) {
       var t = n.code,
         r = n.defaultTab,
-        a = n.onChange,
-        o = n.width,
-        i = e.useMemo(function () {
-          return [
-            { name: "HTML", value: "markup" },
-            { name: "CSS", value: "css" },
-            { name: "JS", value: "javascript" },
-          ];
-        }, []);
+        a = n.excludeEditorTabs,
+        o = n.onChange,
+        i = n.width,
+        d = e.useMemo(
+          function () {
+            return [
+              { name: "HTML", value: "markup" },
+              { name: "CSS", value: "css" },
+              { name: "JS", value: "javascript" },
+            ].filter(function (e) {
+              return a.find(function (n) {
+                return n !== e.value;
+              });
+            });
+          },
+          [a]
+        );
       return s.default.createElement(
         N,
         {
-          defaultIndex: i.findIndex(function (e) {
+          defaultIndex: d.findIndex(function (e) {
             return e.value === r;
           }),
-          style: { width: o },
+          style: { width: i },
         },
         s.default.createElement(
           P,
           null,
-          i.map(function (e) {
+          d.map(function (e) {
             return s.default.createElement(q, { key: e.value }, e.name);
           })
         ),
         s.default.createElement(
           M,
           null,
-          i.map(function (e) {
+          d.map(function (e) {
             return s.default.createElement(
               U,
               { key: e.value },
               s.default.createElement(I, {
                 code: t[e.value],
-                onChange: a,
+                onChange: o,
                 language: e.value,
               })
             );
@@ -216,7 +226,7 @@
     J = t.styled("div")(
       T ||
         (T = v([
-          "\n  color: white;\n  padding: 0.2em 0.5em;\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  box-sizing: border-box;\n",
+          "\n  color: white;\n  padding: 0.2em 0.5em;\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  box-sizing: border-box;\n  background: #e63946;\n",
         ]))
     ),
     z = function (e) {
@@ -229,7 +239,7 @@
     F = t.styled("div")(
       L ||
         (L = v([
-          '\n  position: relative;\n  height: 100%;\n  background: white;\n  border-radius: 8px;\n\n  &::after {\n    content: "";\n    display: inline-block;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    z-index: 1;\n    top: 0;\n    left: 0;\n  }\n',
+          "\n  position: relative;\n  height: 100%;\n  background: white;\n  border-radius: 8px;\n\n  iframe {\n    pointer-events: none;\n  }\n",
         ]))
     ),
     $ = e.memo(function (n) {
@@ -238,8 +248,8 @@
         a = n.transformJs,
         o = n.presets,
         i = e.useState(""),
-        l = i[0],
-        d = i[1],
+        d = i[0],
+        l = i[1],
         u = e.useState(null),
         c = u[0],
         f = u[1];
@@ -271,7 +281,7 @@
                   "\n    </body>\n    </html>\n  "
                 );
               })(r, t, a, o);
-              d(e), f(null);
+              l(e), f(null);
             } catch (e) {
               f(e.message);
             }
@@ -297,7 +307,7 @@
             width: "100%",
             title: "example",
             frameBorder: "0",
-            srcDoc: l,
+            srcDoc: d,
           }),
           c && s.default.createElement(z, { error: c })
         )
@@ -308,17 +318,25 @@
         r = n.snippet,
         a = n.presets,
         o = n.defaultTab,
-        i = n.transformJs,
+        i = n.excludeTabs,
+        d = n.transformJs,
         l = n.width,
-        d = e.useState([]),
-        u = d[0],
-        c = d[1],
-        f = e.useMemo(function () {
-          return [
-            { name: "Result", value: "result" },
-            { name: "Console", value: "console" },
-          ];
-        }, []);
+        u = e.useState([]),
+        c = u[0],
+        f = u[1],
+        m = e.useMemo(
+          function () {
+            return [
+              { name: "Result", value: "result" },
+              { name: "Console", value: "console" },
+            ].filter(function (e) {
+              return i.find(function (n) {
+                return n !== e.value;
+              });
+            });
+          },
+          [i]
+        );
       return (
         e.useEffect(
           function () {
@@ -326,7 +344,7 @@
               window.addEventListener("message", function (e) {
                 e.data.source === "frame-" + t &&
                   "log" === e.data.message.type &&
-                  c(function (n) {
+                  f(function (n) {
                     return [].concat(n, e.data.message.data);
                   });
               });
@@ -336,7 +354,7 @@
         s.default.createElement(
           N,
           {
-            defaultIndex: f.findIndex(function (e) {
+            defaultIndex: m.findIndex(function (e) {
               return e.value === o;
             }),
             style: { width: l },
@@ -344,7 +362,7 @@
           s.default.createElement(
             P,
             null,
-            f.map(function (e) {
+            m.map(function (e) {
               return s.default.createElement(q, { key: e.value }, e.name);
             })
           ),
@@ -357,14 +375,14 @@
               s.default.createElement($, {
                 id: t,
                 snippet: r,
-                transformJs: i,
+                transformJs: d,
                 presets: a,
               })
             ),
             s.default.createElement(
               U,
               null,
-              s.default.createElement(H, { logs: u })
+              s.default.createElement(H, { logs: c })
             )
           )
         )
@@ -435,11 +453,11 @@
       a = n.children,
       o = e.useState(_),
       i = o[0],
-      l = o[1];
+      d = o[1];
     return (
       e.useEffect(
         function () {
-          l(
+          d(
             (function (e) {
               return (
                 void 0 === e && (e = "light"),
@@ -476,28 +494,31 @@
         a = n.leftChild,
         o = n.rightChild,
         i = e.useRef(null),
-        l = e.useRef(null),
-        d = (function (n) {
+        d = e.useRef(null),
+        l = (function (n) {
           var t = n.containerRef,
             r = n.dividerRef,
             a = n.dividerWidth,
             o = e.useState(0),
             i = o[0],
-            l = o[1],
-            d = e.useState(null),
-            u = d[0],
-            c = d[1];
+            d = o[1],
+            l = e.useState(null),
+            u = l[0],
+            c = l[1];
           e.useEffect(function () {
-            var e = t.current;
-            if (e) {
-              var n = e.clientWidth,
-                r = e.getBoundingClientRect();
-              c(r), l(n / 2);
+            function e() {
+              var e = t.current;
+              if (e) {
+                var n = e.clientWidth,
+                  r = e.getBoundingClientRect();
+                c(r), d(n / 2);
+              }
             }
+            e(), window.addEventListener("resize", e);
           }, []);
           var s = e.useCallback(
               function (e) {
-                u && l(e.clientX - u.left);
+                u && d(e.clientX - u.left);
               },
               [u]
             ),
@@ -530,13 +551,13 @@
             ),
             { leftWidth: i, rightWidth: u ? u.width - i - a : 0 }
           );
-        })({ containerRef: i, dividerRef: l, dividerWidth: G().divider.width }),
-        u = d.rightWidth;
+        })({ containerRef: i, dividerRef: d, dividerWidth: G().divider.width }),
+        u = l.rightWidth;
       return s.default.createElement(
         Q,
         { className: r, ref: i },
-        a(d.leftWidth),
-        s.default.createElement(Z, { ref: l }),
+        a(l.leftWidth),
+        s.default.createElement(Z, { ref: d }),
         o(u)
       );
     };
@@ -546,28 +567,32 @@
       var r = t.id,
         a = t.defaultEditorTab,
         o = void 0 === a ? "markup" : a,
-        i = t.defaultResultTab,
-        l = void 0 === i ? "result" : i,
-        d = t.transformJs,
-        u = void 0 !== d && d,
-        c = t.presets,
+        i = t.excludeEditorTabs,
+        d = void 0 === i ? [] : i,
+        l = t.defaultResultTab,
+        u = void 0 === l ? "result" : l,
+        c = t.excludeResultTabs,
         f = void 0 === c ? [] : c,
-        m = t.theme,
-        p = t.mode,
-        g = void 0 === p ? "light" : p,
-        h = e.useState(t.initialSnippet),
-        v = h[0],
-        y = h[1],
-        k = n.useId(r),
-        w = function (e, n) {
-          y(function (t) {
+        m = t.transformJs,
+        p = void 0 !== m && m,
+        g = t.presets,
+        h = void 0 === g ? [] : g,
+        v = t.theme,
+        w = t.mode,
+        E = void 0 === w ? "light" : w,
+        y = e.useState(t.initialSnippet),
+        k = y[0],
+        x = y[1],
+        C = n.useId(r),
+        T = function (e, n) {
+          x(function (t) {
             var r;
             return b({}, t, (((r = {})[n] = e), r));
           });
         };
       return s.default.createElement(
         K,
-        { userTheme: m, mode: g },
+        { userTheme: v, mode: E },
         s.default.createElement(
           "div",
           { className: "playground" },
@@ -575,19 +600,21 @@
             leftChild: function (e) {
               return s.default.createElement(W, {
                 width: e,
-                code: v,
+                code: k,
                 defaultTab: o,
-                onChange: w,
+                excludeEditorTabs: d,
+                onChange: T,
               });
             },
             rightChild: function (e) {
               return s.default.createElement(A, {
                 width: e,
-                id: k,
-                snippet: v,
-                defaultTab: l,
-                transformJs: u,
-                presets: f,
+                id: C,
+                snippet: k,
+                defaultTab: u,
+                excludeTabs: f,
+                transformJs: p,
+                presets: h,
               });
             },
           })

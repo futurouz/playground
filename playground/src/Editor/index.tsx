@@ -14,19 +14,29 @@ interface IProps {
   width: number;
   code: ISnippet;
   defaultTab: IEditorTabs;
+  excludeEditorTabs?: IEditorTabs[];
   onChange: (changed: string, type: IEditorTabs) => void;
 }
 
-const Editor: FC<IProps> = ({ code, defaultTab, onChange, width }) => {
-  const tabs: Readonly<ITabConfig<IEditorTabs>[]> = useMemo(
-    () => [
-      { name: "HTML", value: "markup" },
-      { name: "CSS", value: "css" },
-      { name: "JS", value: "javascript" },
-    ],
-    []
-  );
+const Editor: FC<IProps> = ({
+  code,
+  defaultTab,
+  excludeEditorTabs,
+  onChange,
+  width,
+}) => {
+  const tabs: Readonly<ITabConfig<IEditorTabs>[]> = useMemo(() => {
+    const defaultTabs = [
+      { name: "HTML", value: "markup" as IEditorTabs },
+      { name: "CSS", value: "css" as IEditorTabs },
+      { name: "JS", value: "javascript" as IEditorTabs },
+    ];
 
+    return defaultTabs.filter((tab) =>
+      excludeEditorTabs.find((name) => name !== tab.value)
+    );
+  }, [excludeEditorTabs]);
+  ``;
   return (
     <StyledTabs
       defaultIndex={tabs.findIndex((tab) => tab.value === defaultTab)}

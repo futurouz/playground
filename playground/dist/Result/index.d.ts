@@ -4,6 +4,7 @@ interface IProps {
   id: string | number;
   snippet: ISnippet;
   defaultTab: IResultTabs;
+  excludeTabs?: IResultTabs[];
   transformJs: boolean;
   presets: string[];
   width: number;

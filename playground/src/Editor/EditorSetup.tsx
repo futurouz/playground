@@ -12,6 +12,12 @@ const EditorWrapper = styled("div")`
   font-feature-settings: normal;
   width: 100%;
   height: 100%;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+
+  textarea {
+    caret-color: white;
+  }
 `;
 
 interface IProps {

@@ -14,7 +14,9 @@ setup(createElement, undefined, useTheme);
 interface IProps {
   initialSnippet: ISnippet;
   defaultEditorTab?: IEditorTabs;
+  excludeEditorTabs?: IEditorTabs[];
   defaultResultTab?: IResultTabs;
+  excludeResultTabs?: IResultTabs[];
   transformJs?: boolean;
   presets?: string[];
   id?: string;
@@ -26,7 +28,9 @@ const Playground: FC<IProps> = ({
   id: userId,
   initialSnippet,
   defaultEditorTab = "markup",
+  excludeEditorTabs = [],
   defaultResultTab = "result",
+  excludeResultTabs = [],
   transformJs = false,
   presets = [],
   theme,
@@ -42,6 +46,8 @@ const Playground: FC<IProps> = ({
     }));
   };
 
+  console.log("in Playground : ", excludeEditorTabs);
+
   return (
     <ThemeProvider userTheme={theme} mode={mode}>
       <div className="playground">
@@ -51,6 +57,7 @@ const Playground: FC<IProps> = ({
               width={width}
               code={snippet}
               defaultTab={defaultEditorTab}
+              excludeEditorTabs={excludeEditorTabs}
               onChange={onSnippetChange}
             />
           )}
@@ -60,6 +67,7 @@ const Playground: FC<IProps> = ({
               id={id}
               snippet={snippet}
               defaultTab={defaultResultTab}
+              excludeTabs={excludeResultTabs}
               transformJs={transformJs}
               presets={presets}
             />

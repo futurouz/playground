@@ -17,16 +17,16 @@ import f from "react-simple-code-editor";
 import h, { defaultProps as b } from "prism-react-renderer";
 import v from "prism-react-renderer/themes/nightOwl";
 import {
-  Tabs as k,
-  TabList as w,
+  Tabs as w,
+  TabList as k,
   Tab as E,
   TabPanels as y,
   TabPanel as x,
 } from "@reach/tabs";
 import C from "@agney/react-inspector";
-import L from "lodash.merge";
-function $() {
-  return ($ =
+import T from "lodash.merge";
+function L() {
+  return (L =
     Object.assign ||
     function (e) {
       for (var n = 1; n < arguments.length; n++) {
@@ -37,15 +37,19 @@ function $() {
       return e;
     }).apply(this, arguments);
 }
-let T;
+let $;
 const B = p("div")(
-    T ||
-      (T = ((e) => e)`
+    $ ||
+      ($ = ((e) => e)`
   background-color: #252530;
   overflow-y: auto;
   font-feature-settings: normal;
   width: 100%;
   height: 100%;
+
+  textarea {
+    caret-color: white;
+  }
 `)
   ),
   R = ({ code: t, language: r, onChange: o }) =>
@@ -94,7 +98,7 @@ let j,
   P,
   W,
   D = (e) => e;
-const H = p(k)(
+const H = p(w)(
     j ||
       (j = D`
   display: flex;
@@ -111,7 +115,7 @@ const H = p(k)(
 `),
     O.phone
   ),
-  J = p(w)(
+  J = p(k)(
     I ||
       (I = D`
   background-color: #252530;
@@ -126,6 +130,7 @@ const H = p(k)(
 
   &[data-selected] {
     color: lightgray;
+    font-weight: 600;
   }
 `)
   ),
@@ -133,6 +138,7 @@ const H = p(k)(
     P ||
       (P = D`
   flex: 1 1 0%;
+  overflow: auto;
 `)
   ),
   S = p(x)(
@@ -142,33 +148,40 @@ const H = p(k)(
   width: 100%;
 `)
   ),
-  A = ({ code: n, defaultTab: r, onChange: o, width: a }) => {
-    const i = t(
-      () => [
-        { name: "HTML", value: "markup" },
-        { name: "CSS", value: "css" },
-        { name: "JS", value: "javascript" },
-      ],
-      []
+  A = ({
+    code: n,
+    defaultTab: r,
+    excludeEditorTabs: o,
+    onChange: a,
+    width: i,
+  }) => {
+    const l = t(
+      () =>
+        [
+          { name: "HTML", value: "markup" },
+          { name: "CSS", value: "css" },
+          { name: "JS", value: "javascript" },
+        ].filter((e) => o.find((n) => n !== e.value)),
+      [o]
     );
     return e.createElement(
       H,
-      { defaultIndex: i.findIndex((e) => e.value === r), style: { width: a } },
+      { defaultIndex: l.findIndex((e) => e.value === r), style: { width: i } },
       e.createElement(
         J,
         null,
-        i.map((n) => e.createElement(M, { key: n.value }, n.name))
+        l.map((n) => e.createElement(M, { key: n.value }, n.name))
       ),
       e.createElement(
         z,
         null,
-        i.map((t) =>
+        l.map((t) =>
           e.createElement(
             S,
             { key: t.value },
             e.createElement(R, {
               code: n[t.value],
-              onChange: o,
+              onChange: a,
               language: t.value,
             })
           )
@@ -207,6 +220,7 @@ const q = p("div")(
   width: 100%;
   bottom: 0;
   box-sizing: border-box;
+  background: #e63946;
 `)
   ),
   Y = ({ error: n }) => e.createElement(q, null, e.createElement("p", null, n));
@@ -219,15 +233,8 @@ const K = p("div")(
   background: white;
   border-radius: 8px;
 
-  &::after {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    top: 0;
-    left: 0;
+  iframe {
+    pointer-events: none;
   }
 `)
   ),
@@ -280,16 +287,18 @@ const K = p("div")(
     snippet: r,
     presets: i,
     defaultTab: l,
-    transformJs: d,
-    width: c,
+    excludeTabs: d,
+    transformJs: c,
+    width: s,
   }) => {
-    const [s, m] = o([]),
-      u = t(
-        () => [
-          { name: "Result", value: "result" },
-          { name: "Console", value: "console" },
-        ],
-        []
+    const [m, u] = o([]),
+      p = t(
+        () =>
+          [
+            { name: "Result", value: "result" },
+            { name: "Console", value: "console" },
+          ].filter((e) => d.find((n) => n !== e.value)),
+        [d]
       );
     return (
       a(() => {
@@ -297,19 +306,19 @@ const K = p("div")(
           window.addEventListener("message", (e) => {
             e.data.source === `frame-${n}` &&
               "log" === e.data.message.type &&
-              m((n) => [...n, ...e.data.message.data]);
+              u((n) => [...n, ...e.data.message.data]);
           });
       }, [n]),
       e.createElement(
         H,
         {
-          defaultIndex: u.findIndex((e) => e.value === l),
-          style: { width: c },
+          defaultIndex: p.findIndex((e) => e.value === l),
+          style: { width: s },
         },
         e.createElement(
           J,
           null,
-          u.map((n) => e.createElement(M, { key: n.value }, n.name))
+          p.map((n) => e.createElement(M, { key: n.value }, n.name))
         ),
         e.createElement(
           z,
@@ -320,11 +329,11 @@ const K = p("div")(
             e.createElement(Q, {
               id: n,
               snippet: r,
-              transformJs: d,
+              transformJs: c,
               presets: i,
             })
           ),
-          e.createElement(S, null, e.createElement(X, { logs: s }))
+          e.createElement(S, null, e.createElement(X, { logs: m }))
         )
       )
     );
@@ -389,7 +398,7 @@ function ae({ mode: n, userTheme: t, children: r }) {
     a(() => {
       l(
         (function (e = "light") {
-          return L(te, "light" === e ? ee : ne);
+          return T(te, "light" === e ? ee : ne);
         })(n)
       );
     }, [n]),
@@ -435,12 +444,15 @@ const ce = p("div", c)(
         const [r, i] = o(0),
           [l, c] = o(null);
         a(() => {
-          const n = e.current;
-          if (n) {
-            const e = n.clientWidth,
-              t = n.getBoundingClientRect();
-            c(t), i(e / 2);
+          function n() {
+            const n = e.current;
+            if (n) {
+              const e = n.clientWidth,
+                t = n.getBoundingClientRect();
+              c(t), i(e / 2);
+            }
           }
+          n(), window.addEventListener("resize", n);
         }, []);
         const s = d(
             (e) => {
@@ -483,34 +495,43 @@ export default ({
   id: n,
   initialSnippet: t,
   defaultEditorTab: r = "markup",
-  defaultResultTab: a = "result",
-  transformJs: i = !1,
-  presets: l = [],
-  theme: d,
-  mode: c = "light",
+  excludeEditorTabs: a = [],
+  defaultResultTab: i = "result",
+  excludeResultTabs: l = [],
+  transformJs: d = !1,
+  presets: c = [],
+  theme: s,
+  mode: m = "light",
 }) => {
-  const [s, m] = o(t),
-    p = u(n),
-    g = (e, n) => {
-      m((t) => $({}, t, { [n]: e }));
+  const [p, g] = o(t),
+    f = u(n),
+    h = (e, n) => {
+      g((t) => L({}, t, { [n]: e }));
     };
   return e.createElement(
     ae,
-    { userTheme: d, mode: c },
+    { userTheme: s, mode: m },
     e.createElement(
       "div",
       { className: "playground" },
       e.createElement(me, {
         leftChild: (n) =>
-          e.createElement(A, { width: n, code: s, defaultTab: r, onChange: g }),
+          e.createElement(A, {
+            width: n,
+            code: p,
+            defaultTab: r,
+            excludeEditorTabs: a,
+            onChange: h,
+          }),
         rightChild: (n) =>
           e.createElement(Z, {
             width: n,
-            id: p,
-            snippet: s,
-            defaultTab: a,
-            transformJs: i,
-            presets: l,
+            id: f,
+            snippet: p,
+            defaultTab: i,
+            excludeTabs: l,
+            transformJs: d,
+            presets: c,
           }),
       })
     )

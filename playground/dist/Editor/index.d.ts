@@ -4,6 +4,7 @@ interface IProps {
   width: number;
   code: ISnippet;
   defaultTab: IEditorTabs;
+  excludeEditorTabs?: IEditorTabs[];
   onChange: (changed: string, type: IEditorTabs) => void;
 }
 declare const Editor: FC<IProps>;

@@ -5,7 +5,9 @@ import { ColorMode } from "./utils/theme";
 interface IProps {
   initialSnippet: ISnippet;
   defaultEditorTab?: IEditorTabs;
+  excludeEditorTabs?: IEditorTabs[];
   defaultResultTab?: IResultTabs;
+  excludeResultTabs?: IResultTabs[];
   transformJs?: boolean;
   presets?: string[];
   id?: string;

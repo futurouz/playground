@@ -8,6 +8,7 @@ const Container = styled("div")`
   width: 100%;
   bottom: 0;
   box-sizing: border-box;
+  background: #e63946;
 `;
 
 interface IProps {

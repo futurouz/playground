@@ -11,13 +11,19 @@ function useDrag({ containerRef, dividerRef, dividerWidth }: IProps) {
   const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
-    const containerEl = containerRef.current;
-    if (containerEl) {
-      const fullWidth = containerEl.clientWidth;
-      const containerRect = containerEl.getBoundingClientRect();
-      setContainerRect(containerRect);
-      setWidth(fullWidth / 2);
+    function initialize() {
+      const containerEl = containerRef.current;
+      if (containerEl) {
+        const fullWidth = containerEl.clientWidth;
+        const containerRect = containerEl.getBoundingClientRect();
+        setContainerRect(containerRect);
+        setWidth(fullWidth / 2);
+      }
     }
+
+    initialize();
+
+    window.addEventListener("resize", initialize);
   }, []);
   const keepDragging = useCallback(
     (event: MouseEvent) => {

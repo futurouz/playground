@@ -21,8 +21,10 @@ render(app, document.getElementById('app'));
   return (
     <Playground
       initialSnippet={snippet}
-      defaultEditorTab="javascript"
+      defaultEditorTab="markup"
       defaultResultTab="result"
+      excludeEditorTabs={["javascript"]}
+      excludeResultTabs={["console"]}
       mode="dark"
       transformJs
     />

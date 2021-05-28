@@ -28,11 +28,13 @@ export const StyledTab = styled(Tab)`
 
   &[data-selected] {
     color: lightgray;
+    font-weight: 600;
   }
 `;
 
 export const StyledTabPanels = styled(TabPanels)`
   flex: 1 1 0%;
+  overflow: auto;
 `;
 
 export const StyledTabPanel = styled(TabPanel)`

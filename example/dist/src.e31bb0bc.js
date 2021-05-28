@@ -55407,7 +55407,7 @@ object-assign
         var EditorWrapper = (0, _goober.styled)("div")(
           _templateObject ||
             (_templateObject = _taggedTemplateLiteral([
-              "\n  background-color: #252530;\n  overflow-y: auto;\n  font-feature-settings: normal;\n  width: 100%;\n  height: 100%;\n",
+              "\n  background-color: #252530;\n  overflow-y: auto;\n  font-feature-settings: normal;\n  width: 100%;\n  height: 100%;\n  letter-spacing: 0.5px;\n  line-height: 1.2;\n\n  textarea {\n    caret-color: white;\n  }\n",
             ]))
         );
 
@@ -58226,13 +58226,15 @@ object-assign
         var StyledTab = (0, _goober.styled)(_tabs.Tab)(
           _templateObject3 ||
             (_templateObject3 = _taggedTemplateLiteral([
-              "\n  border: none;\n  padding: 8px 5px;\n  color: gray;\n\n  &[data-selected] {\n    color: lightgray;\n  }\n",
+              "\n  border: none;\n  padding: 8px 5px;\n  color: gray;\n\n  &[data-selected] {\n    color: lightgray;\n    font-weight: 600;\n  }\n",
             ]))
         );
         exports.StyledTab = StyledTab;
         var StyledTabPanels = (0, _goober.styled)(_tabs.TabPanels)(
           _templateObject4 ||
-            (_templateObject4 = _taggedTemplateLiteral(["\n  flex: 1 1 0%;\n"]))
+            (_templateObject4 = _taggedTemplateLiteral([
+              "\n  flex: 1 1 0%;\n  overflow: auto;\n",
+            ]))
         );
         exports.StyledTabPanels = StyledTabPanels;
         var StyledTabPanel = (0, _goober.styled)(_tabs.TabPanel)(
@@ -58320,24 +58322,34 @@ object-assign
         var Editor = function Editor(_ref) {
           var code = _ref.code,
             defaultTab = _ref.defaultTab,
+            excludeEditorTabs = _ref.excludeEditorTabs,
             onChange = _ref.onChange,
             width = _ref.width;
-          var tabs = (0, _react.useMemo)(function () {
-            return [
-              {
-                name: "HTML",
-                value: "markup",
-              },
-              {
-                name: "CSS",
-                value: "css",
-              },
-              {
-                name: "JS",
-                value: "javascript",
-              },
-            ];
-          }, []);
+          var tabs = (0, _react.useMemo)(
+            function () {
+              var defaultTabs = [
+                {
+                  name: "HTML",
+                  value: "markup",
+                },
+                {
+                  name: "CSS",
+                  value: "css",
+                },
+                {
+                  name: "JS",
+                  value: "javascript",
+                },
+              ];
+              return defaultTabs.filter(function (tab) {
+                return excludeEditorTabs.find(function (name) {
+                  return name !== tab.value;
+                });
+              });
+            },
+            [excludeEditorTabs]
+          );
+          ("");
           return /*#__PURE__*/ _react.default.createElement(
             _TabStyles.StyledTabs,
             {
@@ -62159,7 +62171,7 @@ object-assign
         var Container = (0, _goober.styled)("div")(
           _templateObject ||
             (_templateObject = _taggedTemplateLiteral([
-              "\n  color: white;\n  padding: 0.2em 0.5em;\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  box-sizing: border-box;\n",
+              "\n  color: white;\n  padding: 0.2em 0.5em;\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  box-sizing: border-box;\n  background: #e63946;\n",
             ]))
         );
 
@@ -62335,7 +62347,7 @@ object-assign
         var Container = (0, _goober.styled)("div")(
           _templateObject ||
             (_templateObject = _taggedTemplateLiteral([
-              '\n  position: relative;\n  height: 100%;\n  background: white;\n  border-radius: 8px;\n\n  &::after {\n    content: "";\n    display: inline-block;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    z-index: 1;\n    top: 0;\n    left: 0;\n  }\n',
+              "\n  position: relative;\n  height: 100%;\n  background: white;\n  border-radius: 8px;\n\n  iframe {\n    pointer-events: none;\n  }\n",
             ]))
         );
         var Frame = /*#__PURE__*/ (0, _react.memo)(function (_ref) {
@@ -62591,6 +62603,7 @@ object-assign
             snippet = _ref.snippet,
             presets = _ref.presets,
             defaultTab = _ref.defaultTab,
+            excludeTabs = _ref.excludeTabs,
             transformJs = _ref.transformJs,
             width = _ref.width;
 
@@ -62599,18 +62612,26 @@ object-assign
             logs = _useState2[0],
             setLogs = _useState2[1];
 
-          var tabs = (0, _react.useMemo)(function () {
-            return [
-              {
-                name: "Result",
-                value: "result",
-              },
-              {
-                name: "Console",
-                value: "console",
-              },
-            ];
-          }, []);
+          var tabs = (0, _react.useMemo)(
+            function () {
+              var defaultTabs = [
+                {
+                  name: "Result",
+                  value: "result",
+                },
+                {
+                  name: "Console",
+                  value: "console",
+                },
+              ];
+              return defaultTabs.filter(function (tab) {
+                return excludeTabs.find(function (name) {
+                  return name !== tab.value;
+                });
+              });
+            },
+            [excludeTabs]
+          );
           (0, _react.useEffect)(
             function () {
               function waitForMessage() {
@@ -65194,16 +65215,21 @@ object-assign
             setContainerRect = _useState4[1];
 
           (0, _react.useEffect)(function () {
-            var containerEl = containerRef.current;
+            function initialize() {
+              var containerEl = containerRef.current;
 
-            if (containerEl) {
-              var fullWidth = containerEl.clientWidth;
+              if (containerEl) {
+                var fullWidth = containerEl.clientWidth;
 
-              var _containerRect = containerEl.getBoundingClientRect();
+                var _containerRect = containerEl.getBoundingClientRect();
 
-              setContainerRect(_containerRect);
-              setWidth(fullWidth / 2);
+                setContainerRect(_containerRect);
+                setWidth(fullWidth / 2);
+              }
             }
+
+            initialize();
+            window.addEventListener("resize", initialize);
           }, []);
           var keepDragging = (0, _react.useCallback)(
             function (event) {
@@ -65615,11 +65641,17 @@ object-assign
               _ref$defaultEditorTab === void 0
                 ? "markup"
                 : _ref$defaultEditorTab,
+            _ref$excludeEditorTab = _ref.excludeEditorTabs,
+            excludeEditorTabs =
+              _ref$excludeEditorTab === void 0 ? [] : _ref$excludeEditorTab,
             _ref$defaultResultTab = _ref.defaultResultTab,
             defaultResultTab =
               _ref$defaultResultTab === void 0
                 ? "result"
                 : _ref$defaultResultTab,
+            _ref$excludeResultTab = _ref.excludeResultTabs,
+            excludeResultTabs =
+              _ref$excludeResultTab === void 0 ? [] : _ref$excludeResultTab,
             _ref$transformJs = _ref.transformJs,
             transformJs =
               _ref$transformJs === void 0 ? false : _ref$transformJs,
@@ -65646,6 +65678,7 @@ object-assign
             });
           };
 
+          console.log("in Playground : ", excludeEditorTabs);
           return /*#__PURE__*/ _react.default.createElement(
             _ThemeProvider.ThemeProvider,
             {
@@ -65665,6 +65698,7 @@ object-assign
                       width: width,
                       code: snippet,
                       defaultTab: defaultEditorTab,
+                      excludeEditorTabs: excludeEditorTabs,
                       onChange: onSnippetChange,
                     }
                   );
@@ -65677,6 +65711,7 @@ object-assign
                       id: id,
                       snippet: snippet,
                       defaultTab: defaultResultTab,
+                      excludeTabs: excludeResultTabs,
                       transformJs: transformJs,
                       presets: presets,
                     }
@@ -65732,8 +65767,10 @@ object-assign
             _playground.default,
             {
               initialSnippet: snippet,
-              defaultEditorTab: "javascript",
+              defaultEditorTab: "markup",
               defaultResultTab: "result",
+              excludeEditorTabs: ["javascript"],
+              excludeResultTabs: ["console"],
               mode: "dark",
               transformJs: true,
             }
@@ -65788,7 +65825,7 @@ object-assign
           var hostname = "" || location.hostname;
           var protocol = location.protocol === "https:" ? "wss" : "ws";
           var ws = new WebSocket(
-            protocol + "://" + hostname + ":" + "55611" + "/"
+            protocol + "://" + hostname + ":" + "54656" + "/"
           );
 
           ws.onmessage = function (event) {
