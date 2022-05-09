@@ -34,7 +34,6 @@ export const StyledTab = styled(Tab)`
 
 export const StyledTabPanels = styled(TabPanels)`
   flex: 1 1 0%;
-  overflow: auto;
 `;
 
 export const StyledTabPanel = styled(TabPanel)`

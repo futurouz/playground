@@ -10,10 +10,6 @@ const Container = styled("div")`
   height: 100%;
   background: white;
   border-radius: 8px;
-
-  iframe {
-    pointer-events: none;
-  }
 `;
 interface IProps {
   id: string | number;

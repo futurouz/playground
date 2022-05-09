@@ -45,9 +45,7 @@ const Playground: FC<IProps> = ({
       [type]: changed,
     }));
   };
-
-  console.log("in Playground : ", excludeEditorTabs);
-
+  
   return (
     <ThemeProvider userTheme={theme} mode={mode}>
       <div className="playground">
